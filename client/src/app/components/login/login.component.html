@@ -1,0 +1,38 @@
+<h1 class="page-header">Login Page</h1>
+
+<div class='row show-hide-message'>
+    <div [ngClass]="messageClass">
+      {{message|json}}
+    </div>
+  </div>
+
+
+<form [formGroup]="form" (submit)="onloginsubmit()">
+    <div class="form-group">
+        <label for="email">Email address</label>
+        <div [ngClass]="{'has-error':(form.controls.email.errors && form.controls.email.dirty),'has-success':!form.controls.email.errors}">
+        <input  type="email" class="form-control" name="email" id="email" placeholder="enter email" formControlName='email'>
+        <ul class="help-block">
+            <li *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">This field is Required</li>
+            <li *ngIf="(form.controls.email.errors?.minlength || form.controls.email.errors?.maxlength)  && form.controls.email.dirty">email must be in between 5 to 30 </li>
+            <li *ngIf="form.controls.email.errors?.validateEmail  && form.controls.email.dirty">Emila is not valid</li>
+    
+        </ul>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Password</label>
+        <div [ngClass]="{'has-error':(form.controls.password.errors && form.controls.password.dirty),'has-success':!form.controls.password.errors}">
+        <input  type="password" class="form-control" name="password" id="password" formControlName='password' >
+        <ul class="help-block">
+            <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">This field is Required</li>
+            <li *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.dirty">Password must be at least 4 characters, no more than 8 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit</li>
+  
+        </ul>
+        </div>
+    </div>
+
+    <button [disabled]='!form.valid || processing' type="submit" class="btn btn-primary">Submit</button>
+
+</form>

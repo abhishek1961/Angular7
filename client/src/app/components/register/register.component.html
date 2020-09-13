@@ -1,0 +1,62 @@
+<h1 class="page-header">Registration Page   </h1>
+
+<div class='row show-hide-message'>
+  <div [ngClass]="messageClass">
+    {{message|json}}
+  </div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <div [ngClass]="{'has-error':(form.controls.email.errors && form.controls.email.dirty), 'has-success':!form.controls.email.errors}">
+      <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email"  formControlName="email"  (blur)='checkEmail()'>
+      <ul class="help-block">
+        <li *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">This field is Required</li>
+        <li *ngIf="(form.controls.email.errors?.minlength || form.controls.email.errors?.maxlength)  && form.controls.email.dirty">email must be in between 5 to 30 </li>
+        <li *ngIf="form.controls.email.errors?.validateEmail  && form.controls.email.dirty">Emila is not valid</li>
+        <li *ngIf="emailMessage">{{emailMessage}}</li>
+      </ul>
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="username" >Username</label>
+        <div [ngClass]="{'has-error':(form.controls.username.errors && form.controls.username.dirty), 'has-success':!form.controls.username.errors}">
+        <input type="email" class="form-control" name="username" id="username"  placeholder="Enter Username" formControlName="username" (blur)='checkUsername()'>
+        <ul class="help-block">
+            <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">This field is Required</li>
+            <li *ngIf="(form.controls.username.errors?.minlength || form.controls.username.errors?.maxlength)  && form.controls.username.dirty">email must be in between 3 to 13 </li>
+            <li *ngIf="form.controls.username.errors?.validateUsername  && form.controls.username.dirty">Username is not Valid(only uppercase,lowecase and numeric values are allowed!)</li>
+            <li *ngIf="usernameMessage">{{usernameMessage}}</li>
+          </ul>
+        </div>
+      </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <div [ngClass]="{'has-error':(form.controls.password.errors && form.controls.password.dirty), 'has-success':!form.controls.password.errors}">
+      <input type="password" class="form-control" name="password" id="password" placeholder="Password" formControlName="password">
+      <ul class="help-block">
+          <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">This field is Required</li>
+          <li *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.dirty">Password must be at least 4 characters, no more than 8 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit</li>
+        </ul>
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="confirm">Confirm Password</label>
+        <div [ngClass]="{'has-error':(form.controls.confirm.errors && form.controls.confirm.dirty) || (form.errors?.matchingPassword && form.controls.confirm.dirty), 'has-success':!form.controls.confirm.errors && !form.errors?.matchingPassword }">
+        <input type="password" class="form-control" name="confirm" id="confirm" placeholder="Password" formControlName="confirm">
+        <ul class="help-block">
+            <li *ngIf="form.controls.confirm.errors?.required && form.controls.confirm.dirty">This field is Required</li>
+            <li *ngIf="form.errors?.matchingPassword && form.controls.confirm.dirty">password do not match </li>
+            
+          </ul>
+        </div>
+      </div>
+   
+    <button [disabled]='!form.valid || processing' type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <!-- <h2>{{return_reg_auth|json}}</h2> -->
+  <!-- <p>{{form.controls.username.errors | json}}</p> -->
+  
+ 
