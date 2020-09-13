@@ -1,3 +1,4 @@
+# BlogApp-MEAN (based on Angular6,Nodejs and Mongodb.)
 steps rq. to run the project
 1.)install nodeJS in your system.
 2.)To start node server run below given command in your CLI or terminal within the prject directory path
